@@ -1,0 +1,1155 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>西南3月工作总结 - 2026</title>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Microsoft YaHei', 'PingFang SC', sans-serif; background: #0d1117; color: #e6edf3; height: 100vh; overflow: hidden; }
+  
+  /* ===== 布局 ===== */
+  .container { display: flex; flex-direction: column; height: 100vh; }
+  
+  /* ===== 顶部横向导航 ===== */
+  .top-nav {
+    background: linear-gradient(180deg, #161b22 0%, #0d1117 100%);
+    border-bottom: 1px solid #30363d;
+    padding: 0 24px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    height: 56px;
+    flex-shrink: 0;
+  }
+  .top-nav .nav-brand {
+    font-size: 14px;
+    font-weight: 600;
+    color: #58a6ff;
+    margin-right: 24px;
+    white-space: nowrap;
+  }
+  .top-nav .nav-brand span { font-size: 10px; color: #8b949e; display: block; margin-top: 2px; font-weight: 400; }
+  
+  .top-nav .nav-link {
+    display: block;
+    padding: 8px 16px;
+    color: #8b949e;
+    text-decoration: none;
+    font-size: 13px;
+    transition: all 0.2s;
+    border-radius: 6px;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+  .top-nav .nav-link:hover, .top-nav .nav-link.active {
+    color: #e6edf3;
+    background: rgba(56,139,253,0.15);
+  }
+  .top-nav .nav-link.active { color: #58a6ff; font-weight: 500; background: rgba(56,139,253,0.2); }
+  
+  /* ===== 主内容区 ===== */
+  .main-content {
+    flex: 1;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  /* 顶部进度条 */
+  .top-bar {
+    height: 44px;
+    background: #161b22;
+    border-bottom: 1px solid #30363d;
+    display: flex;
+    align-items: center;
+    padding: 0 24px;
+    gap: 8px;
+  }
+  .top-bar span { font-size: 12px; color: #8b949e; }
+  .top-bar .current-section { color: #58a6ff; font-weight: 500; }
+  
+  /* 内容区域 */
+  .content-area {
+    flex: 1;
+    overflow-y: auto;
+    padding: 32px 40px;
+  }
+  .content-area::-webkit-scrollbar { width: 6px; }
+  .content-area::-webkit-scrollbar-thumb { background: #30363d; border-radius: 3px; }
+  
+  /* 页面卡片 */
+  .page { display: none; animation: fadeIn 0.3s ease; }
+  .page.active { display: block; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+  
+  .page-title { font-size: 24px; font-weight: 600; color: #e6edf3; margin-bottom: 24px; padding-bottom: 12px; border-bottom: 2px solid #30363d; }
+  .page-title span { color: #58a6ff; }
+  
+  /* ===== 选项卡 ===== */
+  .tabs { display: flex; gap: 4px; margin-bottom: 24px; border-bottom: 1px solid #30363d; }
+  .tab-btn {
+    padding: 10px 20px;
+    background: transparent;
+    border: none;
+    color: #8b949e;
+    font-size: 13px;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+    transition: all 0.2s;
+  }
+  .tab-btn:hover { color: #e6edf3; }
+  .tab-btn.active { color: #58a6ff; border-bottom-color: #58a6ff; font-weight: 500; }
+  
+  .tab-content { display: none; }
+  .tab-content.active { display: block; }
+  
+  /* ===== 表格 ===== */
+  .data-table { width: 100%; border-collapse: collapse; margin-bottom: 20px; font-size: 13px; }
+  .data-table th { background: #1c2128; color: #8b949e; font-weight: 500; text-align: left; padding: 10px 14px; border: 1px solid #30363d; }
+  .data-table td { padding: 10px 14px; border: 1px solid #30363d; color: #e6edf3; }
+  .data-table tr:nth-child(even) td { background: rgba(22,27,34,0.5); }
+  .data-table tr:hover td { background: rgba(56,139,253,0.08); }
+  .data-table .num { text-align: right; font-variant-numeric: tabular-nums; }
+  .data-table .pct { text-align: right; color: #58a6ff; }
+  .data-table .highlight { background: rgba(56,139,253,0.15) !important; }
+  
+  /* ===== 指标卡片 ===== */
+  .metrics { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; margin-bottom: 24px; }
+  .metric-card {
+    background: linear-gradient(135deg, #1c2128 0%, #161b22 100%);
+    border: 1px solid #30363d;
+    border-radius: 8px;
+    padding: 16px 20px;
+  }
+  .metric-card .label { font-size: 12px; color: #8b949e; margin-bottom: 6px; }
+  .metric-card .value { font-size: 22px; font-weight: 600; color: #e6edf3; }
+  .metric-card .value.blue { color: #58a6ff; }
+  .metric-card .value.green { color: #3fb950; }
+  .metric-card .value.orange { color: #d29922; }
+  
+  /* ===== 分析结论 ===== */
+  .analysis-box {
+    background: rgba(56,139,253,0.08);
+    border: 1px solid rgba(56,139,253,0.2);
+    border-radius: 8px;
+    padding: 20px;
+    margin-top: 24px;
+  }
+  .analysis-box h3 { color: #58a6ff; font-size: 14px; margin-bottom: 12px; display: flex; align-items: center; gap: 6px; }
+  .analysis-box h3::before { content: '💡'; }
+  .analysis-box p { color: #8b949e; font-size: 13px; line-height: 1.7; margin-bottom: 8px; }
+  .analysis-box p:last-child { margin-bottom: 0; }
+  .analysis-box strong { color: #e6edf3; }
+  
+  /* ===== 进度条 ===== */
+  .progress-bar { height: 8px; background: #30363d; border-radius: 4px; overflow: hidden; margin-top: 6px; }
+  .progress-bar .fill { height: 100%; border-radius: 4px; transition: width 0.6s ease; }
+  .progress-bar .fill.blue { background: linear-gradient(90deg, #58a6ff, #79c0ff); }
+  .progress-bar .fill.green { background: linear-gradient(90deg, #238636, #3fb950); }
+  .progress-bar .fill.orange { background: linear-gradient(90deg, #9e6a03, #d29922); }
+  
+  /* ===== 总代标签 ===== */
+  .seller-tag {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 500;
+  }
+  .seller-tag.sdd { background: rgba(56,139,253,0.2); color: #58a6ff; }
+  .seller-tag.ch { background: rgba(210,153,34,0.2); color: #d29922; }
+  .seller-tag.ym { background: rgba(139,148,158,0.2); color: #8b949e; }
+  .seller-tag.ws { background: rgba(163,113,247,0.2); color: #a371f7; }
+  .seller-tag.lq { background: rgba(63,185,80,0.2); color: #3fb950; }
+  
+  /* ===== 页脚 ===== */
+  .footer {
+    padding: 16px 24px;
+    border-top: 1px solid #30363d;
+    background: #161b22;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .footer span { font-size: 11px; color: #8b949e; }
+  .footer .nav-btns { display: flex; gap: 8px; }
+  .footer button {
+    padding: 6px 14px;
+    background: #21262d;
+    border: 1px solid #30363d;
+    color: #8b949e;
+    border-radius: 6px;
+    font-size: 12px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .footer button:hover { background: #30363d; color: #e6edf3; }
+  .footer button:disabled { opacity: 0.4; cursor: not-allowed; }
+  
+  /* ===== 达标率专用 ===== */
+  .achievement-high { color: #3fb950; }
+  .achievement-mid { color: #d29922; }
+  .achievement-low { color: #f85149; }
+  
+  /* ===== 饼图容器 ===== */
+  .chart-wrapper {
+    display: flex;
+    gap: 32px;
+    align-items: flex-start;
+    margin-bottom: 24px;
+  }
+  .chart-container {
+    flex: 0 0 380px;
+    height: 320px;
+    background: rgba(22,27,34,0.5);
+    border: 1px solid #30363d;
+    border-radius: 8px;
+    padding: 8px;
+  }
+  .chart-legend {
+    flex: 1;
+    min-width: 0;
+  }
+  .chart-legend-item {
+    display: flex;
+    align-items: center;
+    padding: 10px 14px;
+    border: 1px solid #30363d;
+    border-radius: 6px;
+    margin-bottom: 8px;
+    background: rgba(22,27,34,0.5);
+    transition: all 0.2s;
+  }
+  .chart-legend-item:hover {
+    background: rgba(56,139,253,0.1);
+    border-color: #58a6ff;
+  }
+  .chart-legend-item .dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    margin-right: 12px;
+    flex-shrink: 0;
+  }
+  .chart-legend-item .label {
+    flex: 1;
+    font-size: 13px;
+    color: #e6edf3;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .chart-legend-item .pct {
+    font-size: 14px;
+    font-weight: 600;
+    color: #58a6ff;
+    margin-left: 12px;
+  }
+  .chart-legend-item .sales {
+    font-size: 12px;
+    color: #8b949e;
+    margin-left: 8px;
+  }
+  .chart-legend-item.highlight {
+    background: rgba(56,139,253,0.15);
+    border-color: rgba(56,139,253,0.4);
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <!-- 顶部横向导航 -->
+  <nav class="top-nav">
+    <div class="nav-brand">🏮 西南3月工作总结<span>2026年3月 · 神州数码</span></div>
+    <a class="nav-link active" href="#section1" data-tip="分析西南各总代及TOP5代理商的笔记本销量与市场份额">📊 厂商销量及份额</a>
+    <a class="nav-link" href="#section2" data-tip="统计各总代在西南区域的开单代理商数量，衡量渠道渗透能力">🌐 渠道覆盖</a>
+    <a class="nav-link" href="#section3" data-tip="分析各品牌共线产品在西南的销售分布与TOP型号竞争力">🔗 共线产品</a>
+    <a class="nav-link" href="#section4" data-tip="追踪神州数码星级产品（高端线）3月任务完成情况">⭐ 星级产品</a>
+    <a class="nav-link" href="#section5" data-tip="评估各区域及TOP5代理商的3月销售任务完成度">🎯 代理商任务达成</a>
+  </nav>
+
+  <!-- 主内容 -->
+  <main class="main-content">
+    <div class="top-bar">
+      <span>当前位置：</span>
+      <span class="current-section" id="currentSection">厂商销量及份额</span>
+    </div>
+
+    <div class="content-area">
+
+      <!-- ========== 第1页：厂商销量及份额 ========== -->
+      <div class="page active" id="section1">
+        <h2 class="page-title"><span>01</span> 厂商销量及份额</h2>
+
+        <!-- 指标卡片 -->
+        <div class="metrics">
+          <div class="metric-card">
+            <div class="label">西南笔记本总销量</div>
+            <div class="value">4,160 <span style="font-size:14px;color:#8b949e">台</span></div>
+          </div>
+          <div class="metric-card">
+            <div class="label">神州数码销量</div>
+            <div class="value blue">1,344 <span style="font-size:14px;color:#8b949e">台</span></div>
+          </div>
+          <div class="metric-card">
+            <div class="label">神州数码份额</div>
+            <div class="value green">32.31%</div>
+          </div>
+          <div class="metric-card">
+            <div class="label">TOP5代理商</div>
+            <div class="value">5 <span style="font-size:14px;color:#8b949e">家</span></div>
+          </div>
+        </div>
+
+        <!-- 选项卡 -->
+        <div class="tabs">
+          <button class="tab-btn active" onclick="switchTab(this, 'tab1-1')">总代销量及份额</button>
+          <button class="tab-btn" onclick="switchTab(this, 'tab1-2')">TOP5代理商销量及份额</button>
+        </div>
+
+        <!-- 1-1 总代销量及份额 -->
+        <div class="tab-content active" id="tab1-1">
+          <div class="chart-wrapper">
+            <div id="chart1-1" class="chart-container"></div>
+            <div class="chart-legend" id="legend1-1"></div>
+          </div>
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>总代</th>
+                <th class="num">笔记本销量（台）</th>
+                <th class="num">市场份额</th>
+                <th>销量分布</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="highlight">
+                <td><span class="seller-tag sdd">SDD</span> 神州数码</td>
+                <td class="num">1,344</td>
+                <td class="num pct">32.31%</td>
+                <td><div class="progress-bar"><div class="fill blue" style="width:32.31%"></div></div></td>
+              </tr>
+              <tr>
+                <td><span class="seller-tag ch">长虹佳华</span></td>
+                <td class="num">1,007</td>
+                <td class="num pct">24.21%</td>
+                <td><div class="progress-bar"><div class="fill orange" style="width:24.21%"></div></div></td>
+              </tr>
+              <tr>
+                <td><span class="seller-tag ym">英迈</span></td>
+                <td class="num">875</td>
+                <td class="num pct">21.03%</td>
+                <td><div class="progress-bar"><div class="fill" style="width:21.03%;background:linear-gradient(90deg,#484f58,#8b949e)"></div></div></td>
+              </tr>
+              <tr>
+                <td><span class="seller-tag ws">伟仕佳杰</span></td>
+                <td class="num">626</td>
+                <td class="num pct">15.05%</td>
+                <td><div class="progress-bar"><div class="fill" style="width:15.05%;background:linear-gradient(90deg,#6e40c9,#a371f7)"></div></div></td>
+              </tr>
+              <tr>
+                <td><span class="seller-tag lq">联强</span></td>
+                <td class="num">308</td>
+                <td class="num pct">7.40%</td>
+                <td><div class="progress-bar"><div class="fill green" style="width:7.40%"></div></div></td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="analysis-box">
+            <h3>分析结论</h3>
+            <p>西南笔记本市场3月总销量达 <strong>4,160台</strong>，神州数码以 <strong>1,344台</strong> 位居第一，份额32.31%，领先第二名长虹佳华约8个百分点。</p>
+            <p>五大总代中，神州数码、长虹佳华、英迈稳居前三，合计占比近 <strong>78%</strong>，市场集中度较高。联强销量相对最低，但仍有7.4%份额。</p>
+          </div>
+        </div>
+
+        <!-- 1-2 TOP5代理商销量及份额 -->
+        <div class="tab-content" id="tab1-2">
+          <p style="color:#8b949e;font-size:13px;margin-bottom:16px;">⚠️ 份额 = 神州数码在该代理商的销量 ÷ 该代理商笔记本总销量</p>
+          <div class="chart-wrapper">
+            <div id="chart1-2" class="chart-container"></div>
+            <div class="chart-legend" id="legend1-2"></div>
+          </div>
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>代理商</th>
+                <th class="num">SDD销量（台）</th>
+                <th class="num">代理总销量（台）</th>
+                <th class="num">SDD占比</th>
+                <th>占比分布</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="highlight">
+                <td>成都兴创戴华电脑科技有限公司</td>
+                <td class="num">323</td>
+                <td class="num">692</td>
+                <td class="num pct">46.68%</td>
+                <td><div class="progress-bar"><div class="fill blue" style="width:46.68%"></div></div></td>
+              </tr>
+              <tr>
+                <td>成都佳美和科技有限公司</td>
+                <td class="num">200</td>
+                <td class="num">326</td>
+                <td class="num pct">61.35%</td>
+                <td><div class="progress-bar"><div class="fill blue" style="width:61.35%"></div></div></td>
+              </tr>
+              <tr>
+                <td>成都鸿图勇创科技有限公司</td>
+                <td class="num">91</td>
+                <td class="num">436</td>
+                <td class="num pct">20.87%</td>
+                <td><div class="progress-bar"><div class="fill blue" style="width:20.87%"></div></div></td>
+              </tr>
+              <tr>
+                <td>重庆庆端科技有限公司</td>
+                <td class="num">80</td>
+                <td class="num">282</td>
+                <td class="num pct">28.37%</td>
+                <td><div class="progress-bar"><div class="fill blue" style="width:28.37%"></div></div></td>
+              </tr>
+              <tr>
+                <td>重庆淇杭科技有限公司</td>
+                <td class="num">0</td>
+                <td class="num">497</td>
+                <td class="num pct">0.00%</td>
+                <td><div class="progress-bar"><div class="fill" style="width:0%"></div></div></td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="analysis-box">
+            <h3>分析结论</h3>
+            <p>神州数码在TOP5代理商中的渗透率差异显著：<strong>成都佳美和</strong> SDD占比最高（61.35%），说明该代理商以神州数码为核心；<strong>成都兴创戴华</strong> 销量最大（323台），但SDD占比46.68%，存在较大提升空间。</p>
+            <p><strong>重庆淇杭</strong> 销量达497台，但SDD销量为0，是亟待突破的空白渠道，建议尽快建立合作。</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- ========== 第2页：渠道覆盖 ========== -->
+      <div class="page" id="section2">
+        <h2 class="page-title"><span>02</span> 渠道覆盖</h2>
+        <div class="metrics">
+          <div class="metric-card">
+            <div class="label">西南总代理商数量</div>
+            <div class="value">53 <span style="font-size:14px;color:#8b949e">家</span></div>
+          </div>
+          <div class="metric-card">
+            <div class="label">神州数码代理商数</div>
+            <div class="value blue">22 <span style="font-size:14px;color:#8b949e">家</span></div>
+          </div>
+          <div class="metric-card">
+            <div class="label">最多渠道总代</div>
+            <div class="value green">神州数码</div>
+          </div>
+          <div class="metric-card">
+            <div class="label">最少渠道总代</div>
+            <div class="value orange">联强</div>
+          </div>
+        </div>
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>排名</th>
+              <th>总代</th>
+              <th class="num">开单代理商数量</th>
+              <th>渠道渗透度</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="highlight">
+              <td>🥇</td>
+              <td><span class="seller-tag sdd">SDD</span> 神州数码</td>
+              <td class="num">22</td>
+              <td><div class="progress-bar"><div class="fill blue" style="width:100%"></div></div></td>
+            </tr>
+            <tr>
+              <td>🥈</td>
+              <td><span class="seller-tag ch">长虹佳华</span></td>
+              <td class="num">21</td>
+              <td><div class="progress-bar"><div class="fill orange" style="width:95%"></div></div></td>
+            </tr>
+            <tr>
+              <td>🥉</td>
+              <td><span class="seller-tag ws">伟仕佳杰</span></td>
+              <td class="num">18</td>
+              <td><div class="progress-bar"><div class="fill" style="width:82%;background:linear-gradient(90deg,#6e40c9,#a371f7)"></div></div></td>
+            </tr>
+            <tr>
+              <td>4</td>
+              <td><span class="seller-tag ym">英迈</span></td>
+              <td class="num">18</td>
+              <td><div class="progress-bar"><div class="fill" style="width:82%;background:linear-gradient(90deg,#484f58,#8b949e)"></div></div></td>
+            </tr>
+            <tr>
+              <td>5</td>
+              <td><span class="seller-tag lq">联强</span></td>
+              <td class="num">15</td>
+              <td><div class="progress-bar"><div class="fill green" style="width:68%"></div></div></td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="analysis-box">
+          <h3>分析结论</h3>
+          <p>神州数码以 <strong>22家</strong> 代理商数量位居第一，渠道覆盖面最广。长虹佳华紧随其后（21家），二者差距较小，形成第一梯队。</p>
+          <p>伟仕佳杰与英迈均覆盖18家代理商，并列第三。联强覆盖15家，渠道数量偏少，建议加强渠道拓展。</p>
+        </div>
+      </div>
+
+      <!-- ========== 第3页：共线产品 ========== -->
+      <div class="page" id="section3">
+        <h2 class="page-title"><span>03</span> 共线产品</h2>
+        <div class="metrics">
+          <div class="metric-card">
+            <div class="label">西南共线产品总销量</div>
+            <div class="value">2,420 <span style="font-size:14px;color:#8b949e">台</span></div>
+          </div>
+          <div class="metric-card">
+            <div class="label">神州数码共线销量</div>
+            <div class="value blue">1,348 <span style="font-size:14px;color:#8b949e">台</span></div>
+          </div>
+          <div class="metric-card">
+            <div class="label">神州数码共线份额</div>
+            <div class="value green">55.70%</div>
+          </div>
+          <div class="metric-card">
+            <div class="label">共线占笔记本比</div>
+            <div class="value">58.17%</div>
+          </div>
+        </div>
+
+        <div class="tabs">
+          <button class="tab-btn active" onclick="switchTab(this, 'tab3-1')">共线产品销量及份额</button>
+          <button class="tab-btn" onclick="switchTab(this, 'tab3-2')">TOP5代理商共线销量</button>
+          <button class="tab-btn" onclick="switchTab(this, 'tab3-3')">TOP5共线型号份额</button>
+        </div>
+
+        <!-- 3-1 共线产品销量及份额 -->
+        <div class="tab-content active" id="tab3-1">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>总代</th>
+                <th class="num">共线销量（台）</th>
+                <th class="num">占共线总量比</th>
+                <th>份额分布</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="highlight">
+                <td><span class="seller-tag sdd">SDD</span> 神州数码</td>
+                <td class="num">1,348</td>
+                <td class="num pct">55.70%</td>
+                <td><div class="progress-bar"><div class="fill blue" style="width:55.70%"></div></div></td>
+              </tr>
+              <tr>
+                <td><span class="seller-tag ch">长虹佳华</span></td>
+                <td class="num">824</td>
+                <td class="num pct">34.05%</td>
+                <td><div class="progress-bar"><div class="fill orange" style="width:34.05%"></div></div></td>
+              </tr>
+              <tr>
+                <td><span class="seller-tag lq">联强</span></td>
+                <td class="num">248</td>
+                <td class="num pct">10.25%</td>
+                <td><div class="progress-bar"><div class="fill green" style="width:10.25%"></div></div></td>
+              </tr>
+              <tr>
+                <td><span class="seller-tag ym">英迈</span></td>
+                <td class="num">0</td>
+                <td class="num pct">0.00%</td>
+                <td><div class="progress-bar"><div class="fill" style="width:0%"></div></div></td>
+              </tr>
+              <tr>
+                <td><span class="seller-tag ws">伟仕佳杰</span></td>
+                <td class="num">0</td>
+                <td class="num pct">0.00%</td>
+                <td><div class="progress-bar"><div class="fill" style="width:0%"></div></div></td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="analysis-box">
+            <h3>分析结论</h3>
+            <p>共线产品销量占西南笔记本总销量的 <strong>58.17%</strong>，是市场销售主力。神州数码在共线市场占据 <strong>55.70%</strong> 的绝对份额，远超长虹佳华（34.05%）和联强（10.25%）。</p>
+            <p>英迈和伟仕佳杰在西南共线市场为 <strong>空白</strong>，说明这两家总代在共线产品线上尚无布局或未能进入该市场段，是值得关注的竞争缺口。</p>
+          </div>
+        </div>
+
+        <!-- 3-2 TOP5代理商共线销量及份额 -->
+        <div class="tab-content" id="tab3-2">
+          <p style="color:#8b949e;font-size:13px;margin-bottom:16px;">⚠️ 份额 = 神州数码共线销量 ÷ 该代理商共线产品总销量</p>
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>代理商</th>
+                <th class="num">SDD共线销量（台）</th>
+                <th class="num">代理共线总量（台）</th>
+                <th class="num">SDD占该代理共线比</th>
+                <th>占比分布</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="highlight">
+                <td>成都兴创戴华电脑科技有限公司</td>
+                <td class="num">323</td>
+                <td class="num">549</td>
+                <td class="num pct">58.83%</td>
+                <td><div class="progress-bar"><div class="fill blue" style="width:58.83%"></div></div></td>
+              </tr>
+              <tr>
+                <td>成都佳美和科技有限公司</td>
+                <td class="num">202</td>
+                <td class="num">207</td>
+                <td class="num pct">97.58%</td>
+                <td><div class="progress-bar"><div class="fill blue" style="width:97.58%"></div></div></td>
+              </tr>
+              <tr>
+                <td>成都鸿图勇创科技有限公司</td>
+                <td class="num">93</td>
+                <td class="num">201</td>
+                <td class="num pct">46.27%</td>
+                <td><div class="progress-bar"><div class="fill blue" style="width:46.27%"></div></div></td>
+              </tr>
+              <tr>
+                <td>重庆庆端科技有限公司</td>
+                <td class="num">80</td>
+                <td class="num">103</td>
+                <td class="num pct">77.67%</td>
+                <td><div class="progress-bar"><div class="fill blue" style="width:77.67%"></div></div></td>
+              </tr>
+              <tr>
+                <td>重庆淇杭科技有限公司</td>
+                <td class="num">0</td>
+                <td class="num">207</td>
+                <td class="num pct">0.00%</td>
+                <td><div class="progress-bar"><div class="fill" style="width:0%"></div></div></td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="analysis-box">
+            <h3>分析结论</h3>
+            <p><strong>成都佳美和</strong> 的共线产品几乎100%来自神州数码（97.58%），是该代理商的独家共线供应商，绑定程度极高。</p>
+            <p><strong>重庆庆端</strong> SDD共线占比达77.67%，同样高度依赖神州数码。<strong>成都兴创戴华</strong> 虽然SDD共线占比58.83%，但绝对量最大（323台），是核心共线客户。</p>
+            <p><strong>重庆淇杭</strong> 共线销量207台但SDD为0，同样是共线产品的空白渠道。</p>
+          </div>
+        </div>
+
+        <!-- 3-3 TOP5共线型号各总代销量及份额 -->
+        <div class="tab-content" id="tab3-3">
+          <p style="color:#8b949e;font-size:13px;margin-bottom:16px;">⚠️ 份额 = 神州数码该型号销量 ÷ 该型号总销量</p>
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>型号</th>
+                <th class="num">SDD销量（台）</th>
+                <th class="num">型号总销量（台）</th>
+                <th class="num">SDD占比</th>
+                <th>占比分布</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="highlight">
+                <td>HP LAPTOP 14-EM0352AU</td>
+                <td class="num">695</td>
+                <td class="num">1,335</td>
+                <td class="num pct">52.06%</td>
+                <td><div class="progress-bar"><div class="fill blue" style="width:52.06%"></div></div></td>
+              </tr>
+              <tr>
+                <td>HP OMNIBOOK 7 14-FS0021TU</td>
+                <td class="num">320</td>
+                <td class="num">393</td>
+                <td class="num pct">81.42%</td>
+                <td><div class="progress-bar"><div class="fill blue" style="width:81.42%"></div></div></td>
+              </tr>
+              <tr>
+                <td>HP OMNIBOOK 3 16-BU0152TU</td>
+                <td class="num">125</td>
+                <td class="num">213</td>
+                <td class="num pct">58.69%</td>
+                <td><div class="progress-bar"><div class="fill blue" style="width:58.69%"></div></div></td>
+              </tr>
+              <tr>
+                <td>HP OMNIBOOK 3 16-BU0553TU</td>
+                <td class="num">61</td>
+                <td class="num">126</td>
+                <td class="num pct">48.41%</td>
+                <td><div class="progress-bar"><div class="fill blue" style="width:48.41%"></div></div></td>
+              </tr>
+              <tr>
+                <td>HP OMNIBOOK 7 AI 14-FR0041TU</td>
+                <td class="num">14</td>
+                <td class="num">62</td>
+                <td class="num pct">22.58%</td>
+                <td><div class="progress-bar"><div class="fill blue" style="width:22.58%"></div></div></td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="analysis-box">
+            <h3>分析结论</h3>
+            <p><strong>HP OMNIBOOK 7 14-FS0021TU</strong> 是神州数码控制力最强的型号，SDD占比高达 <strong>81.42%</strong>，在该型号上占据绝对主导地位。</p>
+            <p><strong>HP LAPTOP 14-EM0352AU</strong> 虽然SDD占比52.06%（刚好过半），但绝对销量最大（695台），是兵家必争的主力型号。</p>
+            <p><strong>HP OMNIBOOK 7 AI 14-FR0041TU</strong> SDD占比仅22.58%，是该型号的弱势竞争者，长虹佳华或其他总代占据主导，值得重点关注和突破。</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- ========== 第4页：星级产品 ========== -->
+      <div class="page" id="section4">
+        <h2 class="page-title"><span>04</span> 星级产品</h2>
+        <div class="metrics">
+          <div class="metric-card">
+            <div class="label">星级产品任务</div>
+            <div class="value">57 <span style="font-size:14px;color:#8b949e">台</span></div>
+          </div>
+          <div class="metric-card">
+            <div class="label">神州数码实际销量</div>
+            <div class="value blue">58 <span style="font-size:14px;color:#8b949e">台</span></div>
+          </div>
+          <div class="metric-card">
+            <div class="label">达成率</div>
+            <div class="value green">101.8%</div>
+          </div>
+          <div class="metric-card">
+            <div class="label">超额完成</div>
+            <div class="value green">+1台</div>
+          </div>
+        </div>
+
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>星级产品型号</th>
+              <th class="num">SDD销量（台）</th>
+              <th>任务贡献</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="highlight">
+              <td><span class="seller-tag sdd">fs0024</span></td>
+              <td class="num">5</td>
+              <td><div class="progress-bar"><div class="fill blue" style="width:8.77%"></div></div></td>
+            </tr>
+            <tr>
+              <td><span class="seller-tag sdd">fs0026</span></td>
+              <td class="num">30</td>
+              <td><div class="progress-bar"><div class="fill blue" style="width:52.63%"></div></div></td>
+            </tr>
+            <tr>
+              <td><span class="seller-tag sdd">fs0027</span></td>
+              <td class="num">9</td>
+              <td><div class="progress-bar"><div class="fill blue" style="width:15.79%"></div></div></td>
+            </tr>
+            <tr>
+              <td><span class="seller-tag sdd">fr0040</span></td>
+              <td class="num">0</td>
+              <td><div class="progress-bar"><div class="fill" style="width:0%"></div></div></td>
+            </tr>
+            <tr>
+              <td><span class="seller-tag sdd">fr0041</span></td>
+              <td class="num">14</td>
+              <td><div class="progress-bar"><div class="fill blue" style="width:24.56%"></div></div></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="analysis-box">
+          <h3>分析结论</h3>
+          <p>神州数码星级产品3月任务 <strong>超额完成</strong>，达成率101.8%，虽仅比任务多1台，但任务完成的意义重大。</p>
+          <p><strong>fs0026</strong> 是星级产品的绝对主力，贡献了52.63%的销量（30台）；<strong>fr0041</strong> 贡献24.56%（14台）；<strong>fr0040</strong> 销量为0，存在任务缺口。</p>
+          <p>建议：加强 <strong>fr0040</strong> 的推广（3月销量为0），同时继续深耕 <strong>fs0026</strong> 和 <strong>fr0041</strong> 维持增量。</p>
+        </div>
+      </div>
+
+      <!-- ========== 第5页：代理商任务达成 ========== -->
+      <div class="page" id="section5">
+        <h2 class="page-title"><span>05</span> 代理商任务达成</h2>
+        <div class="metrics">
+          <div class="metric-card">
+            <div class="label">西南四省均超额完成</div>
+            <div class="value green">100%</div>
+          </div>
+          <div class="metric-card">
+            <div class="label">TOP5最高达成率</div>
+            <div class="value green">285.1%</div>
+          </div>
+          <div class="metric-card">
+            <div class="label">TOP5最低达成率</div>
+            <div class="value blue">113.1%</div>
+          </div>
+          <div class="metric-card">
+            <div class="label">TOP5全部达成</div>
+            <div class="value green">✓</div>
+          </div>
+        </div>
+
+        <div class="tabs">
+          <button class="tab-btn active" onclick="switchTab(this, 'tab5-1')">各省任务达成</button>
+          <button class="tab-btn" onclick="switchTab(this, 'tab5-2')">TOP5代理商达成</button>
+        </div>
+
+        <!-- 5-1 各省任务达成 -->
+        <div class="tab-content active" id="tab5-1">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>省份</th>
+                <th class="num">任务（元）</th>
+                <th class="num">实际销售额（元）</th>
+                <th class="num">达成率</th>
+                <th>达成进度</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="highlight">
+                <td>🏆 四川省</td>
+                <td class="num">9,373,943</td>
+                <td class="num">15,108,200</td>
+                <td class="num achievement-high">161.2%</td>
+                <td><div class="progress-bar"><div class="fill green" style="width:100%"></div></div></td>
+              </tr>
+              <tr>
+                <td>🥈 贵州省</td>
+                <td class="num">663,598</td>
+                <td class="num">1,004,618</td>
+                <td class="num achievement-high">151.4%</td>
+                <td><div class="progress-bar"><div class="fill green" style="width:100%"></div></div></td>
+              </tr>
+              <tr>
+                <td>🥉 重庆市</td>
+                <td class="num">4,284,830</td>
+                <td class="num">6,284,331</td>
+                <td class="num achievement-high">146.7%</td>
+                <td><div class="progress-bar"><div class="fill green" style="width:100%"></div></div></td>
+              </tr>
+              <tr>
+                <td>云南省</td>
+                <td class="num">3,179,891</td>
+                <td class="num">3,240,203</td>
+                <td class="num achievement-mid">101.9%</td>
+                <td><div class="progress-bar"><div class="fill orange" style="width:100%"></div></div></td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="analysis-box">
+            <h3>分析结论</h3>
+            <p>西南四省3月任务 <strong>全部超额完成</strong>！四川省表现最为亮眼，达成率高达161.2%，销售额是任务的1.6倍，是西南的核心引擎市场。</p>
+            <p>贵州省和重庆市分别以151.4%和146.7%的达成率紧随其后，均实现大幅超额。云南省达成率101.9%，刚刚过线，尚有提升空间。</p>
+          </div>
+        </div>
+
+        <!-- 5-2 TOP5代理商任务达成 -->
+        <div class="tab-content" id="tab5-2">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>代理商</th>
+                <th class="num">任务（元）</th>
+                <th class="num">实际销售额（元）</th>
+                <th class="num">达成率</th>
+                <th>达成进度</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="highlight">
+                <td>🏆 成都兴创戴华电脑科技有限公司</td>
+                <td class="num">1,428,200</td>
+                <td class="num">4,072,030</td>
+                <td class="num achievement-high">285.1%</td>
+                <td><div class="progress-bar"><div class="fill green" style="width:100%"></div></div></td>
+              </tr>
+              <tr>
+                <td>🥈 成都鸿图勇创科技有限公司</td>
+                <td class="num">1,409,700</td>
+                <td class="num">2,796,487</td>
+                <td class="num achievement-high">198.4%</td>
+                <td><div class="progress-bar"><div class="fill green" style="width:100%"></div></div></td>
+              </tr>
+              <tr>
+                <td>🥉 重庆淇杭科技有限公司</td>
+                <td class="num">1,963,563</td>
+                <td class="num">3,542,744</td>
+                <td class="num achievement-high">180.4%</td>
+                <td><div class="progress-bar"><div class="fill green" style="width:100%"></div></div></td>
+              </tr>
+              <tr>
+                <td>重庆庆端科技有限公司</td>
+                <td class="num">1,276,487</td>
+                <td class="num">1,669,340</td>
+                <td class="num achievement-high">130.8%</td>
+                <td><div class="progress-bar"><div class="fill green" style="width:100%"></div></div></td>
+              </tr>
+              <tr>
+                <td>成都佳美和科技有限公司</td>
+                <td class="num">1,661,300</td>
+                <td class="num">1,879,351</td>
+                <td class="num achievement-mid">113.1%</td>
+                <td><div class="progress-bar"><div class="fill orange" style="width:100%"></div></div></td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="analysis-box">
+            <h3>分析结论</h3>
+            <p>TOP5代理商3月任务 <strong>全部达成</strong>！<strong>成都兴创戴华</strong> 以285.1%的达成率领跑，实际销售额是任务的近3倍，是绝对的核心大客户。</p>
+            <p><strong>成都鸿图勇创</strong>（198.4%）和<strong>重庆淇杭</strong>（180.4%）表现同样优异，均实现大幅超额。<strong>重庆庆端</strong> 达成率130.8%，稳中有进。</p>
+            <p><strong>成都佳美和</strong> 达成率113.1%，虽已达标但为TOP5中最低，建议关注其后续增长动力。</p>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- end content-area -->
+
+    <!-- 页脚 -->
+    <div class="footer">
+      <span>西南3月工作总结 · 2026年3月 · 神州数码</span>
+      <div class="nav-btns">
+        <button id="prevBtn" onclick="navigatePage(-1)" disabled>← 上一页</button>
+        <button id="nextBtn" onclick="navigatePage(1)">下一页 →</button>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script>
+  // ===== 页面导航逻辑 =====
+  const pages = ['section1','section2','section3','section4','section5'];
+  let currentPage = 0;
+
+  // 导航链接点击
+  document.querySelectorAll('.nav-link[href^="#"]').forEach(link => {
+    link.addEventListener('click', function(e) {
+      e.preventDefault();
+      const targetId = this.getAttribute('href').substring(1);
+      showPage(targetId);
+      
+      // 更新激活状态
+      document.querySelectorAll('.top-nav .nav-link').forEach(l => l.classList.remove('active'));
+      document.querySelectorAll('.top-nav .nav-link[href="#' + targetId + '"]').forEach(l => l.classList.add('active'));
+      
+      updateNavButtons();
+    });
+  });
+
+  function showPage(id) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    const target = document.getElementById(id);
+    if (target) {
+      target.classList.add('active');
+      // 更新标题
+      const titles = {
+        'section1': '厂商销量及份额',
+        'section2': '渠道覆盖',
+        'section3': '共线产品',
+        'section4': '星级产品',
+        'section5': '代理商任务达成'
+      };
+      document.getElementById('currentSection').textContent = titles[id] || id;
+      // 滚动到顶部
+      document.querySelector('.content-area').scrollTop = 0;
+    }
+    currentPage = pages.indexOf(id);
+    if (currentPage < 0) currentPage = 0;
+  }
+
+  function navigatePage(dir) {
+    currentPage = Math.max(0, Math.min(pages.length - 1, currentPage + dir));
+    showPage(pages[currentPage]);
+    
+    // 更新导航高亮
+    document.querySelectorAll('.top-nav .nav-link').forEach(l => l.classList.remove('active'));
+    const targetLink = document.querySelector('.top-nav .nav-link[href="#' + pages[currentPage] + '"]');
+    if (targetLink) {
+      targetLink.classList.add('active');
+    }
+    
+    updateNavButtons();
+  }
+
+  function updateNavButtons() {
+    document.getElementById('prevBtn').disabled = currentPage === 0;
+    document.getElementById('nextBtn').disabled = currentPage === pages.length - 1;
+  }
+
+  // ===== 选项卡切换 =====
+  function switchTab(btn, tabId) {
+    // 找到btn所在的tabs容器
+    const tabsContainer = btn.closest('.tabs');
+    tabsContainer.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    
+    // 找到对应的tab contents
+    const tabContainer = tabsContainer.nextElementSibling;
+    if (tabContainer && tabContainer.classList.contains('tab-contents-wrapper')) {
+      // ignore
+    }
+    // 简单实现：找同级的tab-content
+    let sibling = tabsContainer.nextElementSibling;
+    while (sibling) {
+      if (sibling.classList.contains('tab-content')) {
+        sibling.classList.remove('active');
+      }
+      sibling = sibling.nextElementSibling;
+    }
+    const targetTab = document.getElementById(tabId);
+    if (targetTab) targetTab.classList.add('active');
+  }
+
+  // ===== 初始化 =====
+  updateNavButtons();
+
+  // ===== 饼图渲染 =====
+  const chartColors = ['#58a6ff', '#d29922', '#8b949e', '#a371f7', '#3fb950'];
+
+  // 总代销量份额数据
+  const data1_1 = [
+    { name: '神州数码', value: 32.31, sales: 1344, color: '#58a6ff' },
+    { name: '长虹佳华', value: 24.21, sales: 1007, color: '#d29922' },
+    { name: '英迈', value: 21.03, sales: 875, color: '#8b949e' },
+    { name: '伟仕佳杰', value: 15.05, sales: 626, color: '#a371f7' },
+    { name: '联强', value: 7.40, sales: 308, color: '#3fb950' }
+  ];
+
+  // TOP5代理商SDD占比数据
+  const data1_2 = [
+    { name: '成都兴创戴华', value: 46.68, sdd: 323, total: 692, color: '#58a6ff' },
+    { name: '成都佳美和', value: 61.35, sdd: 200, total: 326, color: '#79c0ff' },
+    { name: '成都鸿图勇创', value: 20.87, sdd: 91, total: 436, color: '#d29922' },
+    { name: '重庆庆端', value: 28.37, sdd: 80, total: 282, color: '#a371f7' },
+    { name: '重庆淇杭', value: 0.00, sdd: 0, total: 497, color: '#8b949e' }
+  ];
+
+  function renderPieChart(chartId, legendId, data, formatter) {
+    const chartDom = document.getElementById(chartId);
+    if (!chartDom) return;
+    if (chartDom.getAttribute('data-inited')) return;
+    const myChart = echarts.init(chartDom);
+    chartDom.setAttribute('data-inited', 'true');
+    const option = {
+      tooltip: {
+        trigger: 'item',
+        backgroundColor: 'rgba(22, 27, 34, 0.95)',
+        borderColor: '#30363d',
+        borderWidth: 1,
+        textStyle: { color: '#e6edf3', fontSize: 13 },
+        formatter: function(params) {
+          const d = data[params.dataIndex];
+          return formatter(d);
+        }
+      },
+      series: [{
+        type: 'pie',
+        radius: ['40%', '70%'],
+        center: ['50%', '50%'],
+        avoidLabelOverlap: true,
+        itemStyle: {
+          borderRadius: 4,
+          borderColor: '#0d1117',
+          borderWidth: 2
+        },
+        label: {
+          show: true,
+          position: 'outside',
+          color: '#e6edf3',
+          fontSize: 12,
+          formatter: '{b}\n{d}%',
+          overflow: 'truncate',
+          width: 80
+        },
+        labelLine: {
+          show: true,
+          lineStyle: { color: '#30363d' }
+        },
+        emphasis: {
+          itemStyle: {
+            shadowBlur: 10,
+            shadowOffsetX: 0,
+            shadowColor: 'rgba(0, 0, 0, 0.5)'
+          },
+          label: { fontSize: 14, fontWeight: 'bold' }
+        },
+        data: data.map(d => ({
+          value: d.value,
+          name: d.name,
+          itemStyle: { color: d.color }
+        }))
+      }]
+    };
+    myChart.setOption(option);
+    
+    // 渲染图例
+    const legendDom = document.getElementById(legendId);
+    if (legendDom) {
+      legendDom.innerHTML = data.map((d, i) => 
+        '<div class="chart-legend-item' + (i === 0 ? ' highlight' : '') + '" data-index="' + i + '">' +
+          '<span class="dot" style="background:' + d.color + '"></span>' +
+          '<span class="label" title="' + d.name + '">' + d.name + '</span>' +
+          '<span class="pct">' + d.value.toFixed(2) + '%</span>' +
+          (d.sales !== undefined ? '<span class="sales">(' + d.sales.toLocaleString() + '台)</span>' : '') +
+        '</div>'
+      ).join('');
+      
+      legendDom.querySelectorAll('.chart-legend-item').forEach((item, i) => {
+        item.addEventListener('mouseenter', function() {
+          myChart.dispatchAction({ type: 'highlight', seriesIndex: 0, dataIndex: i });
+        });
+        item.addEventListener('mouseleave', function() {
+          myChart.dispatchAction({ type: 'downplay', seriesIndex: 0, dataIndex: i });
+        });
+      });
+    }
+  }
+
+  function initCharts() {
+    renderPieChart('chart1-1', 'legend1-1', data1_1, function(d) {
+      return '<div style="padding:4px"><b>' + d.name + '</b><br/>' +
+             '市场份额: <b style="color:#58a6ff">' + d.value.toFixed(2) + '%</b><br/>' +
+             '销量: <b>' + d.sales.toLocaleString() + ' 台</b></div>';
+    });
+    renderPieChart('chart1-2', 'legend1-2', data1_2, function(d) {
+      return '<div style="padding:4px"><b>' + d.name + '</b><br/>' +
+             'SDD占比: <b style="color:#58a6ff">' + d.value.toFixed(2) + '%</b><br/>' +
+             'SDD销量: <b>' + d.sdd.toLocaleString() + ' 台</b><br/>' +
+             '代理总销量: <b>' + d.total.toLocaleString() + ' 台</b></div>';
+    });
+  }
+
+  window.addEventListener('load', function() {
+    setTimeout(initCharts, 100);
+  });
+
+  // 切换选项卡时重新渲染图表
+  const originalSwitchTab = switchTab;
+  function switchTab(btn, tabId) {
+    originalSwitchTab(btn, tabId);
+    setTimeout(function() {
+      if (tabId === 'tab1-1') {
+        const chartDom = document.getElementById('chart1-1');
+        if (chartDom && !chartDom.getAttribute('data-inited')) {
+          renderPieChart('chart1-1', 'legend1-1', data1_1, function(d) {
+            return '<div style="padding:4px"><b>' + d.name + '</b><br/>' +
+                   '市场份额: <b style="color:#58a6ff">' + d.value.toFixed(2) + '%</b><br/>' +
+                   '销量: <b>' + d.sales.toLocaleString() + ' 台</b></div>';
+          });
+        }
+        if (chartDom) echarts.getInstanceByDom(chartDom)?.resize();
+      } else if (tabId === 'tab1-2') {
+        const chartDom = document.getElementById('chart1-2');
+        if (chartDom && !chartDom.getAttribute('data-inited')) {
+          renderPieChart('chart1-2', 'legend1-2', data1_2, function(d) {
+            return '<div style="padding:4px"><b>' + d.name + '</b><br/>' +
+                   'SDD占比: <b style="color:#58a6ff">' + d.value.toFixed(2) + '%</b><br/>' +
+                   'SDD销量: <b>' + d.sdd.toLocaleString() + ' 台</b><br/>' +
+                   '代理总销量: <b>' + d.total.toLocaleString() + ' 台</b></div>';
+          });
+        }
+        if (chartDom) echarts.getInstanceByDom(chartDom)?.resize();
+      }
+    }, 50);
+  }
+</script>
+
+</body>
+</html>
