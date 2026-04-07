@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Inspur IIP-F5M Mini PC - 产品规格</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  
+  body {
+    font-family: 'Microsoft YaHei', 'PingFang SC', 'Helvetica Neue', Arial, sans-serif;
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+    min-height: 100vh;
+    color: #e8e8e8;
+    line-height: 1.6;
+  }
+  
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px;
+  }
+  
+  /* Header */
+  .header {
+    text-align: center;
+    margin-bottom: 50px;
+    position: relative;
+  }
+  
+  .brand-logo {
+    display: inline-block;
+    background: linear-gradient(135deg, #00d4ff, #0066ff);
+    padding: 12px 40px;
+    border-radius: 8px;
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    margin-bottom: 20px;
+    box-shadow: 0 8px 32px rgba(0, 102, 255, 0.3);
+  }
+  
+  .product-title {
+    font-size: 48px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 10px;
+    text-shadow: 0 2px 20px rgba(0, 212, 255, 0.3);
+  }
+  
+  .product-subtitle {
+    font-size: 20px;
+    color: #00d4ff;
+    font-weight: 300;
+    letter-spacing: 2px;
+  }
+  
+  /* Hero Section */
+  .hero-section {
+    display: flex;
+    gap: 50px;
+    align-items: center;
+    margin-bottom: 50px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    padding: 50px;
+    backdrop-filter: blur(10px);
+  }
+  
+  .product-image {
+    flex: 0 0 350px;
+    height: 350px;
+    background: linear-gradient(145deg, #2a2a3e, #1a1a2e);
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+  }
+  
+  .product-image::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(45deg, transparent, rgba(0, 212, 255, 0.1), transparent);
+    animation: shimmer 3s infinite;
+  }
+  
+  @keyframes shimmer {
+    0% { transform: translateX(-100%) rotate(45deg); }
+    100% { transform: translateX(100%) rotate(45deg); }
+  }
+  
+  .product-image .inspur-text {
+    font-size: 42px;
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: 4px;
+    text-shadow: 0 0 30px rgba(0, 212, 255, 0.5);
+  }
+  
+  .product-info {
+    flex: 1;
+  }
+  
+  .product-info h2 {
+    font-size: 28px;
+    color: #00d4ff;
+    margin-bottom: 20px;
+    border-bottom: 2px solid rgba(0, 212, 255, 0.3);
+    padding-bottom: 15px;
+  }
+  
+  .spec-item {
+    display: flex;
+    margin-bottom: 15px;
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  }
+  
+  .spec-label {
+    flex: 0 0 160px;
+    color: #888;
+    font-size: 14px;
+  }
+  
+  .spec-value {
+    flex: 1;
+    color: #fff;
+    font-size: 14px;
+  }
+  
+  /* Section Cards */
+  .section-card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    padding: 35px;
+    margin-bottom: 30px;
+    backdrop-filter: blur(10px);
+  }
+  
+  .section-title {
+    font-size: 24px;
+    color: #00d4ff;
+    margin-bottom: 25px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  
+  .section-title::before {
+    content: '';
+    width: 4px;
+    height: 24px;
+    background: linear-gradient(180deg, #00d4ff, #0066ff);
+    border-radius: 2px;
+  }
+  
+  /* Spec Grid */
+  .spec-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 20px;
+  }
+  
+  .spec-box {
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    padding: 25px;
+    transition: all 0.3s ease;
+  }
+  
+  .spec-box:hover {
+    border-color: rgba(0, 212, 255, 0.4);
+    box-shadow: 0 0 30px rgba(0, 212, 255, 0.1);
+  }
+  
+  .spec-box-title {
+    font-size: 16px;
+    color: #00d4ff;
+    margin-bottom: 20px;
+    font-weight: 600;
+    letter-spacing: 1px;
+  }
+  
+  .spec-detail {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    font-size: 13px;
+  }
+  
+  .spec-detail:last-child {
+    border-bottom: none;
+  }
+  
+  .spec-detail-label {
+    color: #888;
+  }
+  
+  .spec-detail-value {
+    color: #e8e8e8;
+    text-align: right;
+    max-width: 60%;
+  }
+  
+  /* Feature Tags */
+  .feature-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 20px;
+  }
+  
+  .feature-tag {
+    background: rgba(0, 212, 255, 0.1);
+    border: 1px solid rgba(0, 212, 255, 0.3);
+    color: #00d4ff;
+    padding: 8px 20px;
+    border-radius: 25px;
+    font-size: 13px;
+  }
+  
+  /* Interface Section */
+  .interface-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+  }
+  
+  .interface-item {
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+  }
+  
+  .interface-icon {
+    font-size: 32px;
+    margin-bottom: 10px;
+    color: #00d4ff;
+  }
+  
+  .interface-name {
+    font-size: 14px;
+    color: #e8e8e8;
+    margin-bottom: 5px;
+  }
+  
+  .interface-spec {
+    font-size: 12px;
+    color: #666;
+  }
+  
+  /* Footer */
+  .footer {
+    text-align: center;
+    margin-top: 50px;
+    padding: 30px;
+    color: #666;
+    font-size: 13px;
+  }
+  
+  /* Responsive */
+  @media (max-width: 768px) {
+    .hero-section {
+      flex-direction: column;
+      padding: 30px;
+    }
+    
+    .product-image {
+      flex: 0 0 280px;
+      width: 280px;
+      height: 280px;
+    }
+    
+    .product-title {
+      font-size: 32px;
+    }
+    
+    .spec-grid {
+      grid-template-columns: 1fr;
+    }
+    
+    .spec-item {
+      flex-direction: column;
+      gap: 5px;
+    }
+    
+    .spec-label {
+      flex: none;
+    }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <!-- Header -->
+  <div class="header">
+    <div class="brand-logo">inspur</div>
+    <h1 class="product-title">IIP-F5M</h1>
+    <p class="product-subtitle">MINI PC · 迷你电脑主机</p>
+  </div>
+
+  <!-- Hero Section -->
+  <div class="hero-section">
+    <div class="product-image">
+      <span class="inspur-text">inspur</span>
+    </div>
+    <div class="product-info">
+      <h2>产品规格</h2>
+      <div class="spec-item">
+        <span class="spec-label">PCBA型号</span>
+        <span class="spec-value">P0-F5-10</span>
+      </div>
+      <div class="spec-item">
+        <span class="spec-label">产品形态</span>
+        <span class="spec-value">Mini PC</span>
+      </div>
+      <div class="spec-item">
+        <span class="spec-label">外壳材料</span>
+        <span class="spec-value">塑料</span>
+      </div>
+      <div class="spec-item">
+        <span class="spec-label">外观尺寸</span>
+        <span class="spec-value">100 × 100 × 33 mm</span>
+      </div>
+      <div class="feature-tags">
+        <span class="feature-tag">VESA壁挂</span>
+        <span class="feature-tag">双屏显示</span>
+        <span class="feature-tag">Windows 11</span>
+        <span class="feature-tag">Linux</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- System Hardware -->
+  <div class="section-card">
+    <h3 class="section-title">系统硬件配置</h3>
+    <div class="spec-grid">
+      <div class="spec-box">
+        <div class="spec-box-title">CPU 处理器</div>
+        <div class="spec-detail">
+          <span class="spec-detail-label">类型</span>
+          <span class="spec-detail-value">AMD 3300U</span>
+        </div>
+        <div class="spec-detail">
+          <span class="spec-detail-label">制造工艺</span>
+          <span class="spec-detail-value">12nm</span>
+        </div>
+        <div class="spec-detail">
+          <span class="spec-detail-label">核心/线程</span>
+          <span class="spec-detail-value">4核心 4线程</span>
+        </div>
+        <div class="spec-detail">
+          <span class="spec-detail-label">缓存</span>
+          <span class="spec-detail-value">L2: 2MB; L3: 4MB</span>
+        </div>
+        <div class="spec-detail">
+          <span class="spec-detail-label">睿频最大速度</span>
+          <span class="spec-detail-value">3.5 GHz</span>
+        </div>
+        <div class="spec-detail">
+          <span class="spec-detail-label">功耗 (TDP)</span>
+          <span class="spec-detail-value">15 W</span>
+        </div>
+      </div>
+      
+      <div class="spec-box">
+        <div class="spec-box-title">GPU 图形处理器</div>
+        <div class="spec-detail">
+          <span class="spec-detail-label">类型</span>
+          <span class="spec-detail-value">Radeon™ Vega 8 Graphics</span>
+        </div>
+      </div>
+      
+      <div class="spec-box">
+        <div class="spec-box-title">内存</div>
+        <div class="spec-detail">
+          <span class="spec-detail-label">类型</span>
+          <span class="spec-detail-value">DDR4 SO-DIMM × 1</span>
+        </div>
+        <div class="spec-detail">
+          <span class="spec-detail-label">速度</span>
+          <span class="spec-detail-value">最高支持 2666 MT/s</span>
+        </div>
+        <div class="spec-detail">
+          <span class="spec-detail-label">容量</span>
+          <span class="spec-detail-value">8GB</span>
+        </div>
+      </div>
+      
+      <div class="spec-box">
+        <div class="spec-box-title">存储</div>
+        <div class="spec-detail">
+          <span class="spec-detail-label">SSD容量</span>
+          <span class="spec-detail-value">256G SATA SSD</span>
+        </div>
+        <div class="spec-detail">
+          <span class="spec-detail-label">SSD类型/接口</span>
+          <span class="spec-detail-value">M.2 M_key_x2 2280 SATA & NVMe × 1</span>
+        </div>
+        <div class="spec-detail">
+          <span class="spec-detail-label">2.5寸 SSD</span>
+          <span class="spec-detail-value">不支持 (NA)</span>
+        </div>
+        <div class="spec-detail">
+          <span class="spec-detail-label">TF卡槽</span>
+          <span class="spec-detail-value">不支持 (NA)</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- System Features -->
+  <div class="section-card">
+    <h3 class="section-title">系统特性</h3>
+    <div class="spec-grid">
+      <div class="spec-box">
+        <div class="spec-box-title">其他系统特性</div>
+        <div class="spec-detail">
+          <span class="spec-detail-label">RTC</span>
+          <span class="spec-detail-value">支持实时时钟、定时开机</span>
+        </div>
+        <div class="spec-detail">
+          <span class="spec-detail-label">自动开机</span>
+          <span class="spec-detail-value">支持通电后自动开机功能</span>
+        </div>
+        <div class="spec-detail">
+          <span class="spec-detail-label">无盘网络</span>
+          <span class="spec-detail-value">支持 UEFI 无盘启动</span>
+        </div>
+        <div class="spec-detail">
+          <span class="spec-detail-label">TPM</span>
+          <span class="spec-detail-value">CPU集成TPM, 支持 TPM 2.0</span>
+        </div>
+        <div class="spec-detail">
+          <span class="spec-detail-label">多屏显示</span>
+          <span class="spec-detail-value">HDMI × 1 + DP × 1 双屏显示</span>
+        </div>
+        <div class="spec-detail">
+          <span class="spec-detail-label">LED状态指示灯</span>
+          <span class="spec-detail-value">开机白灯，关机灯灭，睡眠红灯</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Network -->
+  <div class="section-card">
+    <h3 class="section-title">网络连接</h3>
+    <div class="spec-grid">
+      <div class="spec-box">
+        <div class="spec-box-title">WiFi</div>
+        <div class="spec-detail">
+          <span class="spec-detail-label">类型</span>
+          <span class="spec-detail-value">板载 (Onboard) WiFi 5/6</span>
+        </div>
+        <div class="spec-detail">
+          <span class="spec-detail-label">协议</span>
+          <span class="spec-detail-value">IEEE 802.11 a, b/g, n, ac, ax</span>
+        </div>
+      </div>
+      
+      <div class="spec-box">
+        <div class="spec-box-title">蓝牙</div>
+        <div class="spec-detail">
+          <span class="spec-detail-label">类型</span>
+          <span class="spec-detail-value">USB类型</span>
+        </div>
+        <div class="spec-detail">
+          <span class="spec-detail-label">协议</span>
+          <span class="spec-detail-value">蓝牙 4.2 / 5.2</span>
+        </div>
+      </div>
+      
+      <div class="spec-box">
+        <div class="spec-box-title">以太网</div>
+        <div class="spec-detail">
+          <span class="spec-detail-label">LAN1</span>
+          <span class="spec-detail-value">10M/100M/1000M 自适应</span>
+        </div>
+        <div class="spec-detail">
+          <span class="spec-detail-label">LAN2</span>
+          <span class="spec-detail-value">NA (无)</span>
+        </div>
+      </div>
+      
+      <div class="spec-box">
+        <div class="spec-box-title">移动网络</div>
+        <div class="spec-detail">
+          <span class="spec-detail-label">3G/4G</span>
+          <span class="spec-detail-value">不支持内置 (NA)</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- I/O Ports -->
+  <div class="section-card">
+    <h3 class="section-title">接口配置</h3>
+    
+    <div class="spec-grid">
+      <div class="spec-box">
+        <div class="spec-box-title">USB 接口</div>
+        <div class="spec-detail">
+          <span class="spec-detail-label">USB 2.0 前置</span>
+          <span class="spec-detail-value">NA</span>
+        </div>
+        <div class="spec-detail">
+          <span class="spec-detail-label">USB 2.0 后置</span>
+          <span class="spec-detail-value">2个 Type-A (480Mbps)</span>
+        </div>
+        <div class="spec-detail">
+          <span class="spec-detail-label">USB 3.0 前置</span>
+          <span class="spec-detail-value">2个 Type-A (5Gbps)</span>
+        </div>
+        <div class="spec-detail">
+          <span class="spec-detail-label">USB 3.0 后置</span>
+          <span class="spec-detail-value">NA</span>
+        </div>
+      </div>
+      
+      <div class="spec-box">
+        <div class="spec-box-title">视频/音频输出</div>
+        <div class="spec-detail">
+          <span class="spec-detail-label">HDMI</span>
+          <span class="spec-detail-value">HDMI 2.0 × 1 (4096 × 2160 @ 30Hz)</span>
+        </div>
+        <div class="spec-detail">
+          <span class="spec-detail-label">DP</span>
+          <span class="spec-detail-value">DP 1.4 × 1 (4096 × 2160 @ 60Hz)</span>
+        </div>
+        <div class="spec-detail">
+          <span class="spec-detail-label">VGA</span>
+          <span class="spec-detail-value">不支持 (NA)</span>
+        </div>
+        <div class="spec-detail">
+          <span class="spec-detail-label">音频接口</span>
+          <span class="spec-detail-value">3.5mm Phone Jack × 1 (音频输入输出合一)</span>
+        </div>
+      </div>
+      
+      <div class="spec-box">
+        <div class="spec-box-title">其他接口</div>
+        <div class="spec-detail">
+          <span class="spec-detail-label">RJ45 千兆网口</span>
+          <span class="spec-detail-value">1个</span>
+        </div>
+        <div class="spec-detail">
+          <span class="spec-detail-label">DC IN 电源接口</span>
+          <span class="spec-detail-value">1个 DC Jack (5.5/2.1mm)</span>
+        </div>
+        <div class="spec-detail">
+          <span class="spec-detail-label">TF卡槽</span>
+          <span class="spec-detail-value">不支持 (NA)</span>
+        </div>
+        <div class="spec-detail">
+          <span class="spec-detail-label">COM串口</span>
+          <span class="spec-detail-value">不支持 (NA)</span>
+        </div>
+        <div class="spec-detail">
+          <span class="spec-detail-label">LVDS屏接口</span>
+          <span class="spec-detail-value">不支持 (NA)</span>
+        </div>
+        <div class="spec-detail">
+          <span class="spec-detail-label">Type-C接口</span>
+          <span class="spec-detail-value">不支持 (NA)</span>
+        </div>
+        <div class="spec-detail">
+          <span class="spec-detail-label">UART串口</span>
+          <span class="spec-detail-value">不支持 (NA)</span>
+        </div>
+        <div class="spec-detail">
+          <span class="spec-detail-label">SIM卡槽</span>
+          <span class="spec-detail-value">不支持 (不支持 micro SIM)</span>
+        </div>
+      </div>
+      
+      <div class="spec-box">
+        <div class="spec-box-title">按键/天线</div>
+        <div class="spec-detail">
+          <span class="spec-detail-label">面板开关</span>
+          <span class="spec-detail-value">1个电源按键</span>
+        </div>
+        <div class="spec-detail">
+          <span class="spec-detail-label">FPC天线 1</span>
+          <span class="spec-detail-value">WiFi 2.4+5G + BT × 1</span>
+        </div>
+        <div class="spec-detail">
+          <span class="spec-detail-label">FPC天线 2</span>
+          <span class="spec-detail-value">WiFi 5.0</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Software -->
+  <div class="section-card">
+    <h3 class="section-title">软件配置</h3>
+    <div class="spec-grid">
+      <div class="spec-box">
+        <div class="spec-box-title">操作系统</div>
+        <div class="spec-detail">
+          <span class="spec-detail-label">版本</span>
+          <span class="spec-detail-value">Windows 11 / Linux</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Environment -->
+  <div class="section-card">
+    <h3 class="section-title">环境与可靠性</h3>
+    <div class="spec-grid">
+      <div class="spec-box">
+        <div class="spec-box-title">温度</div>
+        <div class="spec-detail">
+          <span class="spec-detail-label">工作温度</span>
+          <span class="spec-detail-value">0 ~ 40°C</span>
+        </div>
+        <div class="spec-detail">
+          <span class="spec-detail-label">存储温度</span>
+          <span class="spec-detail-value">-20 ~ 60°C</span>
+        </div>
+      </div>
+      
+      <div class="spec-box">
+        <div class="spec-box-title">其他</div>
+        <div class="spec-detail">
+          <span class="spec-detail-label">湿度</span>
+          <span class="spec-detail-value">90% @ 40°C (无凝露)</span>
+        </div>
+        <div class="spec-detail">
+          <span class="spec-detail-label">ΔT (温升)</span>
+          <span class="spec-detail-value">最大 23°C</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Accessories -->
+  <div class="section-card">
+    <h3 class="section-title">配件</h3>
+    <div class="spec-grid">
+      <div class="spec-box">
+        <div class="spec-box-title">电源适配器</div>
+        <div class="spec-detail">
+          <span class="spec-detail-label">类型</span>
+          <span class="spec-detail-value">插墙式/桌面式</span>
+        </div>
+        <div class="spec-detail">
+          <span class="spec-detail-label">输入</span>
+          <span class="spec-detail-value">100~240V 50/60Hz</span>
+        </div>
+        <div class="spec-detail">
+          <span class="spec-detail-label">输出</span>
+          <span class="spec-detail-value">12V / 2.5A (DC头 5.5×2.1mm)</span>
+        </div>
+      </div>
+      
+      <div class="spec-box">
+        <div class="spec-box-title">其他配件</div>
+        <div class="spec-detail">
+          <span class="spec-detail-label">红外遥控器</span>
+          <span class="spec-detail-value">不支持</span>
+        </div>
+        <div class="spec-detail">
+          <span class="spec-detail-label">VESA壁挂</span>
+          <span class="spec-detail-value">支持 (可挂在显示器背面)</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    Inspur IIP-F5M Mini PC 产品规格确认书
+  </div>
+</div>
+
+</body>
+</html>
