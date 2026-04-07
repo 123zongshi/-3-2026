@@ -1123,29 +1123,51 @@
   // 切换选项卡时重新渲染图表
   const originalSwitchTab = switchTab;
   function switchTab(btn, tabId) {
-    originalSwitchTab(btn, tabId);
+    // 先执行原始的选项卡切换逻辑
+    const tabsContainer = btn.closest('.tabs');
+    if (!tabsContainer) return;
+    
+    // 移除所有tab-btn的active状态
+    tabsContainer.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    
+    // 隐藏所有tab-content
+    let sibling = tabsContainer.nextElementSibling;
+    while (sibling) {
+      if (sibling.classList.contains('tab-content')) {
+        sibling.classList.remove('active');
+      }
+      sibling = sibling.nextElementSibling;
+    }
+    
+    // 显示目标tab-content
+    const targetTab = document.getElementById(tabId);
+    if (targetTab) targetTab.classList.add('active');
+    
+    // 图表处理
     setTimeout(function() {
-      if (tabId === 'tab1-1') {
-        const chartDom = document.getElementById('chart1-1');
-        if (chartDom && !chartDom.getAttribute('data-inited')) {
-          renderPieChart('chart1-1', 'legend1-1', data1_1, function(d) {
-            return '<div style="padding:4px"><b>' + d.name + '</b><br/>' +
-                   '市场份额: <b style="color:#58a6ff">' + d.value.toFixed(2) + '%</b><br/>' +
-                   '销量: <b>' + d.sales.toLocaleString() + ' 台</b></div>';
-          });
+      try {
+        if (tabId === 'tab1-1' || tabId === 'tab1-2') {
+          const chartId = tabId === 'tab1-1' ? 'chart1-1' : 'chart1-2';
+          const chartDom = document.getElementById(chartId);
+          if (chartDom && typeof echarts !== 'undefined' && !chartDom.getAttribute('data-inited')) {
+            if (tabId === 'tab1-1') {
+              renderPieChart('chart1-1', 'legend1-1', data1_1, function(d) {
+                return '<div style="padding:4px"><b>' + d.name + '</b><br/>市场份额: <b style="color:#58a6ff">' + d.value.toFixed(2) + '%</b><br/>销量: <b>' + d.sales.toLocaleString() + ' 台</b></div>';
+              });
+            } else {
+              renderPieChart('chart1-2', 'legend1-2', data1_2, function(d) {
+                return '<div style="padding:4px"><b>' + d.name + '</b><br/>SDD占比: <b style="color:#58a6ff">' + d.value.toFixed(2) + '%</b><br/>SDD销量: <b>' + d.sdd.toLocaleString() + ' 台</b><br/>代理总销量: <b>' + d.total.toLocaleString() + ' 台</b></div>';
+              });
+            }
+          }
+          if (chartDom && typeof echarts !== 'undefined') {
+            const instance = echarts.getInstanceByDom(chartDom);
+            if (instance) instance.resize();
+          }
         }
-        if (chartDom) echarts.getInstanceByDom(chartDom)?.resize();
-      } else if (tabId === 'tab1-2') {
-        const chartDom = document.getElementById('chart1-2');
-        if (chartDom && !chartDom.getAttribute('data-inited')) {
-          renderPieChart('chart1-2', 'legend1-2', data1_2, function(d) {
-            return '<div style="padding:4px"><b>' + d.name + '</b><br/>' +
-                   'SDD占比: <b style="color:#58a6ff">' + d.value.toFixed(2) + '%</b><br/>' +
-                   'SDD销量: <b>' + d.sdd.toLocaleString() + ' 台</b><br/>' +
-                   '代理总销量: <b>' + d.total.toLocaleString() + ' 台</b></div>';
-          });
-        }
-        if (chartDom) echarts.getInstanceByDom(chartDom)?.resize();
+      } catch (e) {
+        console.warn('Chart render error:', e);
       }
     }, 50);
   }
